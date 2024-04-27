@@ -1,20 +1,36 @@
 ﻿@model List<CRUD_2.Models.EmpleadoViewModel>
 @{
     ViewData["Title"] = "Listado";
+    //variables del mensaje de error del metodo crear
+    var successMessage = TempData["successMessage"]?.ToString();
+    var errorMessage = TempData["errorMessage"]?.ToString();
 }
 
 <h2>Lista de Empleados</h2>
 <hr />
-
+@* Mensaje de error del metodo *@
+@if(!string.IsNullOrWhiteSpace(successMessage))
+{
+    <div class="alert alert-success">
+        <strong>Exito!</strong>@successMessage
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+    </div>
+}
+else if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>Error!</strong>@errorMessage
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+    </div>
+}
 
 <form>
     <button asp-action="Crear" asp-controller="Empleado" class="btn btn-primary mb-2">Crear Empleado</button>
-    <table class="table table-responsive table-hover ">
+    <table class="table table-responsive table-hover table-bordered">
         <thead>
             <tr class="table-active">
                 <th>Id</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
+                <th>Nombre completo</th>                
                 <th>Fecha de Nacimiento</th>
                 <th>E-Mail</th>
                 <th>Salario</th>
@@ -30,13 +46,13 @@
                     <tr>
                         <td>@emple.Id</td>
                         <td>@emple.NombreCompleto</td>
-                        <td>@emple.FechaNacimiento</td>
+                        <td>@emple.FechaNacimiento.ToShortDateString()</td>
                         <td>@emple.Email</td>
                         <td>@emple.Salario</td>
                         <td>
-                            <div class="btn-group">
-                                <a asp-controller="Empleado" asp-route="@emple.Id" asp-action="Editar" class="btn btn-primary">Editar</a>
-                                <a asp-controller="Empleado" asp-route="@emple.Id" asp-action="Delete" class="btn btn-danger">Eliminar</a>
+                            <div class=" btn-group">
+                                <a asp-controller="Empleado" asp-route-id="@emple.Id" asp-action="Editar" class="btn btn-sm btn-primary">Editar</a> 
+                                <a asp-controller="Empleado" asp-route-id="@emple.Id" asp-action="Delete" class="btn btn-sm btn-danger">Eliminar</a>
                             </div>
                         </td>
                     </tr>

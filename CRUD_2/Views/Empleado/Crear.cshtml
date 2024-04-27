@@ -1,0 +1,55 @@
+﻿@model CRUD_2.Models.EmpleadoViewModel
+@{
+    ViewData["Title"] = "Crear Empleado";
+    //variables del mensaje de error del metodo crear
+    var errorMessage = TempData["errorMessage"]?.ToString();
+}
+
+<h2> @ViewData["Title"]</h2>
+<hr />
+@* Mensaje de error del metodo *@
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+<div class="alert alert-danger">
+    <strong>Error!</strong>@errorMessage        
+    <button type="button" class=" btn-close float-end" data-bs-dismiss="alert"></button>
+</div>
+
+}
+
+
+<form action="Crear" method="post">
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control" asp-for="Nombre"/>
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Apellido</label>
+        <input type="text" class="form-control" asp-for="Apellido"/>
+        <span asp-validation-for="Apellido" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Fecha de Nacimiento</label>
+        <input type="date" class="form-control" asp-for="FechaNacimiento"/>
+        <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">E-Mail</label>
+        <input type="email" class="form-control" asp-for="Email"/>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Salario</label>
+        <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input type="text" class="form-control" asp-for="Salario" />
+            <span asp-validation-for="Salario" class="text-danger"></span>
+        </div>        
+    </div>
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+</form>
+
+

@@ -1,5 +1,6 @@
 ﻿using CRUD_2.Data;
 using CRUD_2.Models;
+using CRUD_2.Models.Entidades;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_2.Controllers
@@ -35,6 +36,47 @@ namespace CRUD_2.Controllers
                 return View(listaEmpViewModel);
             }
             return View();            
+        }
+
+        [HttpGet]
+        public IActionResult Crear()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Crear(EmpleadoViewModel modelo)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var empleado = new Empleado()
+                    {
+                        //Id = modelo.Id,
+                        Nombre = modelo.Nombre,
+                        Apellido = modelo.Apellido,
+                        Email = modelo.Email,
+                        FechaNacimiento = modelo.FechaNacimiento,
+                        Salario = modelo.Salario
+                    };
+                    context.Empleados.Add(empleado);
+                    context.SaveChanges();
+                    TempData["successMessage"] = "Empleado creado con exito!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errorMessage"] = "El modelo enviado no es válido";
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
+                return View();
+            }         
+                        
         }
     }
 }
