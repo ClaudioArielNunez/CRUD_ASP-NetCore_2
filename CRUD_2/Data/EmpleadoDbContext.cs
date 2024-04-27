@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CRUD_2.Models.Entidades;
+using Microsoft.EntityFrameworkCore;
 
 namespace CRUD_2.Data
 {
@@ -7,6 +8,6 @@ namespace CRUD_2.Data
         public EmpleadoDbContext(DbContextOptions options) : base(options)
         {
         }
-        public DbSet<EmpleadoDbContext> Empleados { get; set; }
+        public DbSet<Empleado> Empleados { get; set; }
     }
 }
