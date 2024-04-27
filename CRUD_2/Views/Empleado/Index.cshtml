@@ -1,0 +1,56 @@
+﻿@model List<CRUD_2.Models.EmpleadoViewModel>
+@{
+    ViewData["Title"] = "Listado";
+}
+
+<h2>Lista de Empleados</h2>
+<hr />
+
+
+<form>
+    <button asp-action="Crear" asp-controller="Empleado" class="btn btn-primary mb-2">Crear Empleado</button>
+    <table class="table table-responsive table-hover ">
+        <thead>
+            <tr class="table-active">
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Fecha de Nacimiento</th>
+                <th>E-Mail</th>
+                <th>Salario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @* Model.Any() el modelo contiene al menos un elemento*@
+            @if (Model != null && Model.Any())
+            {
+                @foreach(var emple in Model)
+                {
+                    <tr>
+                        <td>@emple.Id</td>
+                        <td>@emple.NombreCompleto</td>
+                        <td>@emple.FechaNacimiento</td>
+                        <td>@emple.Email</td>
+                        <td>@emple.Salario</td>
+                        <td>
+                            <div class="btn-group">
+                                <a asp-controller="Empleado" asp-route="@emple.Id" asp-action="Editar" class="btn btn-primary">Editar</a>
+                                <a asp-controller="Empleado" asp-route="@emple.Id" asp-action="Delete" class="btn btn-danger">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }else
+            {
+                <tr>
+                    <td colspan="6">
+                        <div>                            
+                            No hay empleados disponibles aún!
+                        </div>
+                    </td>
+                </tr>    
+            }
+        </tbody>
+    </table>
+</form>
