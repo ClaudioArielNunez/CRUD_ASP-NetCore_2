@@ -1,7 +1,11 @@
+using CRUD_2.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<EmpleadoDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CrudConexion")));
 
 var app = builder.Build();
 
