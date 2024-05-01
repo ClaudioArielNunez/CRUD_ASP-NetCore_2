@@ -43,7 +43,7 @@
         <label class="form-label">Salario</label>
         <div class="input-group">
             <span class="input-group-text">$</span>
-            <input type="text" class="form-control" asp-for="Salario" />
+            <input type="text" class="form-control" asp-for="Salario" />            
             <span asp-validation-for="Salario" class="text-danger"></span>
         </div>        
     </div>
@@ -51,5 +51,11 @@
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 </form>
+@* validacion del lado del cliente *@
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 
