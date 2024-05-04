@@ -110,6 +110,38 @@ namespace CRUD_2.Controllers
                 return RedirectToAction("Index");
             }
         }
-       
+        [HttpPost]
+        public IActionResult Editar(EmpleadoViewModel modelo)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var empleado = new Empleado()
+                    {
+                        Id = modelo.Id,
+                        Nombre = modelo.Nombre,
+                        Apellido = modelo.Apellido,
+                        FechaNacimiento = modelo.FechaNacimiento,
+                        Email = modelo.Email,
+                        Salario = modelo.Salario
+                    };
+                    context.Empleados.Update(empleado);
+                    context.SaveChanges();
+                    TempData["successMessage"] = "Empleado fue actualizado con exito!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Los datos son invalidos!";
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
+                return View();
+            }
+        }
     }
 }
