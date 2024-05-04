@@ -1,5 +1,45 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CRUD_2.Models.EmpleadoViewModel
+
 @{
+    ViewData["Title"] = "Editar empleado";
 }
+
+<h3>@ViewData["Title"]</h3>
+<hr />
+<form action="Editar" method="post">
+    <div class="mb-3">
+        <label class="form-label">Id</label>
+        <input type="text" class="form-control" asp-for="Id" readonly/>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control" asp-for="Nombre"/>
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Apellido</label>
+        <input type="text" class="form-control" asp-for="Apellido"/>
+        <span asp-validation-for="Apellido" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Fecha de Nacimiento</label>
+        <input type="datetime" class="form-control" asp-for="FechaNacimiento"/>
+        <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">E-mail</label>
+        <input type="email" class="form-control" asp-for="Email"/>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Salario</label>
+        <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input type="text" class="form-control" asp-for="Salario" />
+        </div>
+        <span asp-validation-for="Salario" class="text-danger"></span>
+    </div>
+    <div class="d-grid">
+        <button type="submit" class="btn btn-success">Actualizar</button>
+    </div>
+</form>

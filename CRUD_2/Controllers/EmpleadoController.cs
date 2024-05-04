@@ -75,8 +75,41 @@ namespace CRUD_2.Controllers
             {
                 TempData["errorMessage"] = ex.Message;
                 return View();
-            }         
-                        
+            }                               
         }
+
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            try
+            {
+                var empleado = context.Empleados.SingleOrDefault(x => x.Id == id);
+                if (empleado != null)
+                {
+                    var empleadoView = new EmpleadoViewModel()
+                    {
+                        Id = empleado.Id,
+                        Nombre = empleado.Nombre,
+                        Apellido = empleado.Apellido,
+                        Email = empleado.Email,
+                        FechaNacimiento = empleado.FechaNacimiento,
+                        Salario = empleado.Salario
+                    };
+                    return View(empleadoView);
+                }
+                else
+                {
+                    TempData["errorMessage"] = $"Detalle no disponible del empleado con id {id}";
+                    return RedirectToAction("Index");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
+                return RedirectToAction("Index");
+            }
+        }
+       
     }
 }

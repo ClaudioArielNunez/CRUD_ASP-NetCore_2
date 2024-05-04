@@ -29,12 +29,12 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
     <table class="table table-responsive table-hover table-bordered">
         <thead>
             <tr class="table-active">
-                <th>Id</th>
-                <th>Nombre completo</th>                
-                <th>Fecha de Nacimiento</th>
-                <th>E-Mail</th>
-                <th>Salario</th>
-                <th>Acciones</th>
+                <th class="text-center">Id</th>
+                <th class="text-center">Nombre completo</th>                
+                <th class="text-center">Fecha de Nacimiento</th>
+                <th class="text-center">E-Mail</th>
+                <th class="text-center">Salario</th>
+                <th class="text-center">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -44,12 +44,12 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
                 @foreach(var emple in Model)
                 {
                     <tr>
-                        <td>@emple.Id</td>
+                        <td class="text-center">@emple.Id</td>
                         <td>@emple.NombreCompleto</td>
-                        <td>@emple.FechaNacimiento.ToShortDateString()</td>
+                        <td class="text-center">@emple.FechaNacimiento.ToShortDateString()</td>
                         <td>@emple.Email</td>
-                        <td>@emple.Salario</td>
-                        <td>
+                        <td class="text-end">@emple.Salario</td>
+                        <td class="text-center">
                             <div class=" btn-group">
                                 <a asp-controller="Empleado" asp-route-id="@emple.Id" asp-action="Editar" class="btn btn-sm btn-primary">Editar</a> 
                                 <a asp-controller="Empleado" asp-route-id="@emple.Id" asp-action="Delete" class="btn btn-sm btn-danger">Eliminar</a>
