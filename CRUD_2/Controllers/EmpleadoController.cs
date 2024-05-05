@@ -110,6 +110,7 @@ namespace CRUD_2.Controllers
                 return RedirectToAction("Index");
             }
         }
+
         [HttpPost]
         public IActionResult Editar(EmpleadoViewModel modelo)
         {
@@ -141,6 +142,38 @@ namespace CRUD_2.Controllers
             {
                 TempData["errorMessage"] = ex.Message;
                 return View();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                var empleado = context.Empleados.SingleOrDefault(x => x.Id == id);
+                if (empleado != null)
+                {
+                    var empleadoViewModel = new EmpleadoViewModel()
+                    {
+                        Id = empleado.Id,
+                        Nombre = empleado.Nombre,
+                        Apellido = empleado.Apellido,
+                        FechaNacimiento = empleado.FechaNacimiento,
+                        Email = empleado.Email,
+                        Salario = empleado.Salario
+                    };
+                    return View(empleadoViewModel);
+                }
+                else
+                {
+                    TempData["errorMessage"] = $"Detalle no disponible del empleado con id {id}";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
+                return RedirectToAction("Index");
             }
         }
     }
