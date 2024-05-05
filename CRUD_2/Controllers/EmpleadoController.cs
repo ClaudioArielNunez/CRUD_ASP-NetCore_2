@@ -176,5 +176,31 @@ namespace CRUD_2.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        [HttpPost]
+        public IActionResult Delete(EmpleadoViewModel modelo)
+        {
+            try
+            {
+                var empleadoDelete = context.Empleados.SingleOrDefault(x => x.Id == modelo.Id);
+                if (empleadoDelete is not null)
+                {
+                    context.Empleados.Remove(empleadoDelete);
+                    context.SaveChanges();
+                    TempData["successMessage"] = "Empleado borrado exitosamente!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errorMessage"] = $"Empleado no disponible con id {modelo.Id}";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
+                return RedirectToAction("Index");
+            }
+        }
     }
 }
