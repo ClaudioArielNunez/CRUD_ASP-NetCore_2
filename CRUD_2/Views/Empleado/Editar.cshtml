@@ -4,6 +4,10 @@
     ViewData["Title"] = "Editar empleado";
     var errorMessage = TempData["errorMessage"]?.ToString();
 }
+
+<h3>@ViewData["Title"]</h3>
+<hr />
+
 @if (!string.IsNullOrWhiteSpace(errorMessage))
 {
     <div class="alert alert-danger">
@@ -12,8 +16,6 @@
     </div>
 }
 
-<h3>@ViewData["Title"]</h3>
-<hr />
 <form action="Editar" method="post" autocomplete="off">
     <div class="mb-3">
         <label class="form-label">Id</label>
