@@ -116,27 +116,35 @@ namespace CRUD_2.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                var empleadoBuscado = context.Empleados.SingleOrDefault(x=>x.Id == modelo.Id);
+                if(empleadoBuscado != null)
                 {
-                    var empleado = new Empleado()
+                    if (ModelState.IsValid)
                     {
-                        Id = modelo.Id,
-                        Nombre = modelo.Nombre,
-                        Apellido = modelo.Apellido,
-                        FechaNacimiento = modelo.FechaNacimiento,
-                        Email = modelo.Email,
-                        Salario = modelo.Salario
-                    };
-                    context.Empleados.Update(empleado);
-                    context.SaveChanges();
-                    TempData["successMessage"] = "Empleado fue actualizado con exito!";
-                    return RedirectToAction("Index");
+                        //empleadoBuscado.Id = modelo.Id;
+                        empleadoBuscado.Nombre = modelo.Nombre;
+                        empleadoBuscado.Apellido = modelo.Apellido;
+                        empleadoBuscado.FechaNacimiento = modelo.FechaNacimiento;
+                        empleadoBuscado.Email = modelo.Email;
+                        empleadoBuscado.Salario = modelo.Salario;                       
+                        
+                        context.Empleados.Update(empleadoBuscado);
+                        context.SaveChanges();
+                        TempData["successMessage"] = "Empleado fue actualizado con exito!";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["errorMessage"] = "Los datos son invalidos!";
+                        return View();
+                    }
                 }
                 else
                 {
-                    TempData["errorMessage"] = "Los datos son invalidos!";
-                    return View();
+                    TempData["errorMessage"] = $"Detalle no disponible del empleado con id {modelo.Id}";
+                    return RedirectToAction("Index");
                 }
+                
             }
             catch (Exception ex)
             {
